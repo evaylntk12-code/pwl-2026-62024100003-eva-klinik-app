@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PoliController;
+use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -10,17 +14,15 @@ Route::get('/klinik', function () {
     return 'Sistem Informasi Klinik';
 });
 
-Route::get('/pasien', function () {
-    return 'Data Pasien';
-});
+Route::get('/pasien', [PatientController::class, 'index']);
+Route::get('/pasien/{id}', [PatientController::class, 'show']);
 
-Route::get('/dokter', function () {
-    return 'Data Dokter';
-});
+Route::get('/dokter', [DoctorController::class, 'index'])->name('dokter.index');
 
-Route::get('/poli', function () {
-    return 'Data Poli';
-});
+Route::get('/poli', [PoliController::class, 'index'])->name('poli.index');
+
+Route::get('/jadwal', [ScheduleController::class, 'index'])->name('jadwal.index');
+Route::get('/jadwal/{hari}', [ScheduleController::class, 'show']);
 
 Route::get('/tentang', function () {
     return 'Sistem Informasi Klinik <br> Dikembangkan menggunakan Laravel';
