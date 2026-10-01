@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+nav {
+    padding: 12px;
+}
+
+main {
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+}
