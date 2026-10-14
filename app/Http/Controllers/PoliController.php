@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Poli;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PoliController extends Controller
 {
@@ -11,5 +13,59 @@ class PoliController extends Controller
         $polis = Poli::all();
 
         return view('poli.index', compact('polis'));
+    }
+
+    public function create()
+    {
+        return view('poli.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'poli_code' => 'required|unique:polis,poli_code',
+            'name' => 'required|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'required|in:1,0',
+        ]);
+
+        Poli::create($validated);
+
+        return redirect()
+            ->route('poli.index')
+            ->with('success', 'Data poli berhasil ditambahkan.');
+    }
+
+    public function edit(Poli $poli)
+    {
+        return view('poli.edit', compact('poli'));
+    }
+
+    public function update(Request $request, Poli $poli)
+    {
+        $validated = $request->validate([
+            'poli_code' => [
+                'required',
+                Rule::unique('polis', 'poli_code')->ignore($poli->id),
+            ],
+            'name' => 'required|max:255',
+            'description' => 'nullable|string',
+            'is_active' => 'required|in:1,0',
+        ]);
+
+        $poli->update($validated);
+
+        return redirect()
+            ->route('poli.index')
+            ->with('success', 'Data poli berhasil diperbarui.');
+    }
+
+    public function destroy(Poli $poli)
+    {
+        $poli->delete();
+
+        return redirect()
+            ->route('poli.index')
+            ->with('success', 'Data poli berhasil dihapus.');
     }
 }
