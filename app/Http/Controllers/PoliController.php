@@ -68,4 +68,11 @@ class PoliController extends Controller
             ->route('poli.index')
             ->with('success', 'Data poli berhasil dihapus.');
     }
+
+    public function show(Poli $poli)
+    {
+        $poli->load('doctors');
+
+        return view('poli.show', compact('poli'));
+    }
 }

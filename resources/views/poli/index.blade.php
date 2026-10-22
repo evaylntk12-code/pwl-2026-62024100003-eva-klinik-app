@@ -39,6 +39,7 @@
                     @endif
                 </td>
                 <td>
+                    <a href="{{ route('poli.show', $poli->id) }}">Detail</a>
                     <a href="{{ route('poli.edit', $poli->id) }}">Edit</a>
 
                     <form action="{{ route('poli.destroy', $poli->id) }}" method="POST" style="display:inline">

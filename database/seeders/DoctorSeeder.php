@@ -15,6 +15,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'Umum',
             'phone' => '081234561001',
             'is_active' => true,
+            'poli_id' => 1,
         ]);
 
         Doctor::create([
@@ -23,6 +24,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'Anak',
             'phone' => '081234561002',
             'is_active' => true,
+            'poli_id' => 2,
         ]);
 
         Doctor::create([
@@ -31,6 +33,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'Gigi',
             'phone' => '081234561003',
             'is_active' => false,
+            'poli_id' => 3,
         ]);
 
         Doctor::create([
@@ -39,6 +42,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'Kandungan',
             'phone' => '081234561004',
             'is_active' => true,
+            'poli_id' => 4,
         ]);
 
         Doctor::create([
@@ -47,6 +51,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'Mata',
             'phone' => '081234561005',
             'is_active' => false,
+            'poli_id' => 5,
         ]);
 
         Doctor::create([
@@ -55,6 +60,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'Kulit',
             'phone' => '081234561006',
             'is_active' => true,
+            'poli_id' => null,
         ]);
 
         Doctor::create([
@@ -63,6 +69,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'THT',
             'phone' => '081234561007',
             'is_active' => true,
+            'poli_id' => null,
         ]);
 
         Doctor::create([
@@ -71,6 +78,7 @@ class DoctorSeeder extends Seeder
             'specialization' => 'Jantung',
             'phone' => '081234561008',
             'is_active' => false,
+            'poli_id' => null,
         ]);
     }
 }

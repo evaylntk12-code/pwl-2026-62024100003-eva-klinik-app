@@ -32,6 +32,14 @@
                         <p>Poli</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('pendaftaran.index') }}" class="nav-link @if(request()->routeIs('pendaftaran.*')) active @endif">
+                        <i class="nav-icon bi bi-table"></i>
+                        <p>Pendaftaran</p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="{{ route('jadwal.index') }}" class="nav-link @if(request()->routeIs('jadwal.*')) active @endif">
                         <i class="nav-icon bi bi-table"></i>

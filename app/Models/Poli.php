@@ -12,4 +12,9 @@ class Poli extends Model
         'description',
         'is_active',
     ];
+
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }
