@@ -32,5 +32,15 @@ class RegistrationSeeder extends Seeder
             'complaint' => 'Sakit gigi',
             'status' => 'waiting',
         ]);
+
+        for ($i = 1; $i <= 22; $i++) {
+            Registration::create([
+                'patient_id' => ($i % 30) + 1,
+                'doctor_id' => ($i % 12) + 1,
+                'registration_date' => now()->subDays($i)->toDateString(),
+                'complaint' => 'Keluhan uji ' . $i,
+                'status' => $i % 2 === 0 ? 'done' : 'waiting',
+            ]);
+        }
     }
 }

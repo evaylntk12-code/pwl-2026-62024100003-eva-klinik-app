@@ -80,5 +80,16 @@ class DoctorSeeder extends Seeder
             'is_active' => false,
             'poli_id' => null,
         ]);
+
+        for ($i = 9; $i <= 20; $i++) {
+            Doctor::create([
+                'doctor_code' => 'DOC' . str_pad($i, 3, '0', STR_PAD_LEFT),
+                'name' => 'dr. Uji ' . $i,
+                'specialization' => ['Umum', 'Anak', 'Gigi', 'Mata'][$i % 4],
+                'phone' => '08123456' . (1000 + $i),
+                'is_active' => $i % 3 !== 0,
+                'poli_id' => ($i % 5) + 1,
+            ]);
+        }
     }
 }

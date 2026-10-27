@@ -53,5 +53,19 @@ class PatientSeeder extends Seeder
             'address' => 'Rembang',
             'phone' => '081234567894',
         ]);
+
+        $names = ['Andi', 'Bella', 'Citra', 'Dimas', 'Eko', 'Fitri', 'Gita', 'Hadi', 'Indah', 'Joko'];
+        $cities = ['Kudus', 'Jepara', 'Pati', 'Demak', 'Rembang'];
+
+        for ($i = 6; $i <= 30; $i++) {
+            Patient::create([
+                'medical_record_number' => 'RM' . str_pad($i, 4, '0', STR_PAD_LEFT),
+                'name' => $names[$i % 10] . ' ' . $cities[$i % 5],
+                'gender' => $i % 2 === 0 ? 'L' : 'P',
+                'birth_date' => '199' . ($i % 10) . '-0' . (($i % 9) + 1) . '-15',
+                'address' => $cities[$i % 5],
+                'phone' => '0812345678' . str_pad($i, 2, '0', STR_PAD_LEFT),
+            ]);
+        }
     }
 }

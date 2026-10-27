@@ -8,16 +8,33 @@ use Illuminate\Validation\Rule;
 
 class PatientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $patients = Patient::all();
+        $query = Patient::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                ->orWhere('medical_record_number', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('gender')) {
+            $query->where('gender', $request->gender);
+        }
+
+        $allowedSorts = ['name', 'created_at'];
+        $sort = in_array($request->sort, $allowedSorts) ? $request->sort : 'name';
+        $direction = $request->direction === 'desc' ? 'desc' : 'asc';
+
+        $patients = $query
+            ->orderBy($sort, $direction)
+            ->paginate(10)
+            ->withQueryString();
 
         return view('pasien.index', compact('patients'));
-    }
-
-    public function create()
-    {
-        return view('pasien.create');
     }
 
     public function store(Request $request)

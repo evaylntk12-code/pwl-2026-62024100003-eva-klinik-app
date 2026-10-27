@@ -9,11 +9,39 @@ use Illuminate\Validation\Rule;
 
 class DoctorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $doctors = Doctor::with('poli')->get();
+        $query = Doctor::with('poli');
 
-        return view('dokter.index', compact('doctors'));
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                ->orWhere('doctor_code', 'like', "%{$search}%");
+            });
+        }
+
+        if ($request->filled('poli_id')) {
+            $query->where('poli_id', $request->poli_id);
+        }
+
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->is_active);
+        }
+
+        $allowedSorts = ['name', 'doctor_code'];
+        $sort = in_array($request->sort, $allowedSorts) ? $request->sort : 'name';
+        $direction = $request->direction === 'desc' ? 'desc' : 'asc';
+
+        $doctors = $query
+            ->orderBy($sort, $direction)
+            ->paginate(10)
+            ->withQueryString();
+
+        $polis = Poli::orderBy('name')->get();
+
+        return view('dokter.index', compact('doctors', 'polis'));
     }
 
     public function create()
